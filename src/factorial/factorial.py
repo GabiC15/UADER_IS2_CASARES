@@ -28,8 +28,8 @@ desde = 0
 # Si no trae el argumento, lo pide para ingresar
 # Si lo trae del "sys.argv" lo extrae
 if len(sys.argv) == 1:
-    desde = input('Ingrese el numero "desde": ')
-    hasta = input('Ingrese el numero "hasta": ')
+    desde = input("Ingrese el numero desde: ")
+    hasta = input("Ingrese el numero hasta: ")
 
     # Verifico si el usuario cargo el parametro
     # Si lo cargo lo transformo a entero
@@ -39,8 +39,25 @@ if len(sys.argv) == 1:
 else:
     arg = sys.argv[1]
     args = arg.split('-')
-    desde = int(args[0])
-    hasta = int(args[1])
+    if args.count("") > 0:
+        args.remove("")  # Elimino el caracter vacio ("")
+    # En base a la cantidad de argumentos puede tomar dos caminos
+    if (len(args) == 2):
+        # Ya que contiene dos argumentos indica todo el rango
+        desde = int(args[0])
+        hasta = int(args[1])
+    else:
+        # Como no trae ambos argumentos inferimos con
+        # condicionales si trae el "desde" o el "hasta"
+        desde = int(args[0]) if arg[0] != "-" else None
+        hasta = int(args[0]) if arg[-1] != "-" else None
+
+# Si las variables son None, establezco los
+# limites inferior y superior de la consigna
+if (hasta is None):
+    hasta = 60
+if (desde is None):
+    desde = 1
 
 for i in range(desde, hasta + 1):
     print(f"Factorial {i}! es", factorial(i))
