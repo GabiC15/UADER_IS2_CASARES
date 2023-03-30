@@ -23,16 +23,24 @@ def factorial(num):
         return fact
 
 
-desde = 0
 hasta = 0
+desde = 0
 # Si no trae el argumento, lo pide para ingresar
 # Si lo trae del "sys.argv" lo extrae
 if len(sys.argv) == 1:
-    desde = int(input("Ingrese el numero inicial: "))
-    hasta = int(input("Ingrese el numero final: "))
+    desde = input('Ingrese el numero "desde": ')
+    hasta = input('Ingrese el numero "hasta": ')
+
+    # Verifico si el usuario cargo el parametro
+    # Si lo cargo lo transformo a entero
+    # Si no le asigno "None"
+    desde = int(desde) if desde != '' else None
+    hasta = int(hasta) if hasta != '' else None
 else:
-    desde = int(sys.argv[1])
-    hasta = int(sys.argv[2])
+    arg = sys.argv[1]
+    args = arg.split('-')
+    desde = int(args[0])
+    hasta = int(args[1])
 
 for i in range(desde, hasta + 1):
     print(f"Factorial {i}! es", factorial(i))
