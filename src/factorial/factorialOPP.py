@@ -1,4 +1,7 @@
 class FactorialOPP:
+    def __init__(self):
+        self
+
     def factorial(self, num):
         if num < 0:
             print("Factorial de un número negativo no existe")
