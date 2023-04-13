@@ -2,7 +2,7 @@
 import sys
 import openai
 
-openai.api_key = "-- Agrega aquí tu APIKEY --"
+openai.api_key = "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"
 TOP_P = 1
 FREQ_PENALTY = 0
 PRES_PENALTY = 0
@@ -13,7 +13,7 @@ NMAX = 1
 MODEL_ENGINE = "text-davinci-003"
 
 
-def get_answer(answer, stop=None):
+def get_answer(answer):
     """Funcion que retorna respuesta de la api"""
 
     # Se realiza un llamado a la api mediante la libreria "openai"
@@ -26,7 +26,7 @@ def get_answer(answer, stop=None):
         frequency_penalty=FREQ_PENALTY,
         presence_penalty=PRES_PENALTY,
         temperature=TEMPERATURE,
-        stop=stop
+        stop=["You: ", "chatGPT: "]
     )
 
     # Retornamos solo el texto de la respuesta
@@ -70,8 +70,7 @@ def run(prompt=""):
         # Asigno la respuesta de la api a "response"
         # En los argumentos paso el prompt en el caso
         # conversacional, o la pregunta en el caso contrario
-        response = get_answer(prompt if is_convers else request,
-                              stop=["You:", "chatGPT:"] if is_convers else None)
+        response = get_answer(prompt if is_convers else request)
 
         # Valido que la respuesta no esté vacia
         if response == "":
