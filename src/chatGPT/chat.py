@@ -2,7 +2,7 @@
 import sys
 import openai
 
-openai.api_key = "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"
+openai.api_key = "=== Ingrese aquí su APIKEY ==="
 TOP_P = 1
 FREQ_PENALTY = 0
 PRES_PENALTY = 0
@@ -26,7 +26,7 @@ def get_answer(answer):
         frequency_penalty=FREQ_PENALTY,
         presence_penalty=PRES_PENALTY,
         temperature=TEMPERATURE,
-        stop=["You: ", "chatGPT: "]
+        stop=STOP
     )
 
     # Retornamos solo el texto de la respuesta
