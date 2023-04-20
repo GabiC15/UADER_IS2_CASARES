@@ -2,7 +2,7 @@
 import sys
 import openai
 
-openai.api_key = "=== Ingrese aquí su APIKEY ==="
+openai.api_key = "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"
 TOP_P = 1
 FREQ_PENALTY = 0
 PRES_PENALTY = 0
