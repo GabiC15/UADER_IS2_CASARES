@@ -21,7 +21,7 @@ class GetJason(object):
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def execute(self):
+    def getJason(self):
         "Ejecuta el programa getJason"
         jsonfile = None
         try:
@@ -57,5 +57,65 @@ class GetJason(object):
 
         if "-h" in sys.argv:
             print help_string
+        
+        return str(obj[jsonkey])
 
-GetJason().execute()
+class Banco:
+    _instance = None
+    banco = None
+    historial = []
+    def __new__(cls):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+    
+    def __init__(self, banco):
+        self.banco = banco
+    
+    def pagar(self, monto = None):
+        cuenta1 = Cuenta(1000)
+        cuenta2 = Cuenta(2000)
+
+        token = GetJason().getJason()
+        print "Se eligio el token: %s" % token
+
+        salir = "Si"
+        while salir == "Si":
+            if len(sys.argv) > 4:
+                monto = sys.argv[4]
+            if monto is None:
+                monto = input("Ingrese un monto: ")
+        
+            cuenta1.restar_saldo(monto)
+            cuenta2.sumar_saldo(monto)
+
+            self.historial.append("\nPago por $%i\nCuenta 1: $%s\nCuenta 2: $%r\n" % (monto, cuenta1.saldo, cuenta2.saldo))
+            
+            salir = raw_input("Quiere hacer otro pago (Si/No)? ")
+            print(salir)
+
+        for pago in self.historial:
+            print(pago)
+
+class Cuenta:
+    def __init__(self, saldo):
+        self.saldo = saldo
+
+    def restar_saldo(self, monto):
+        self.saldo -= monto
+
+    def sumar_saldo(self, monto):
+        self.saldo += monto
+
+banco = None
+if len(sys.argv) > 3:
+    banco = sys.argv[3]
+
+print "Se eligio el banco: %s" % banco
+
+Banco(banco).pagar()
+
+print("\n")
+
+print("Se realiza un pago por $500")
+Banco(banco).pagar(500)
